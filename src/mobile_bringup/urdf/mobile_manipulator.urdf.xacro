@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobile_manipulator">
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <material name="Beige">
+    <color rgba="1.0 0.784 0.5765 1.0"/>
+  </material>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0341950059245064 -0.000488202669057205 -0.023484876962622"
+        rpy="0 0 0" />
+      <mass
+        value="40.9486107084908" />
+      <inertia
+        ixx="0.614175745536508"
+        ixy="-0.00029161014956335"
+        ixz="0.00349696614970323"
+        iyy="0.585385929134616"
+        iyz="0.00393630741003468"
+        izz="1.14116882796746" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_bringup/urdf/mobile_manipulator_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_bringup/urdf/mobile_manipulator_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="velodyne">
+    <inertial>
+      <origin
+        xyz="-0.000287261593383881 -1.71282553980455E-06 -0.00210508552484484"
+        rpy="0 0 0" />
+      <mass
+        value="1.59564547671227" />
+      <inertia
+        ixx="0.00173425514736997"
+        ixy="9.47838989708527E-10"
+        ixz="-1.3496082303702E-05"
+        iyy="0.00176389158236456"
+        iyz="-9.004773487459E-08"
+        izz="0.00210570589727052" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_bringup/urdf/mobile_manipulator_description/meshes/velodyne.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_bringup/urdf/mobile_manipulator_description/meshes/velodyne.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="velodyne_joint"
+    type="fixed">
+    <origin
+      xyz="-0.11 0 0.2388"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="velodyne" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+<!-- 
+  <xacro:if value="$(arg launch_tracer)">
+      <link name="odom" />
+      <link name="world" />
+      <joint
+        name="fix_odom_to_world"
+        type="fixed">
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <parent
+          link="world" />
+        <child
+          link="odom" />
+        <axis
+          xyz="0 0 0" />
+      </joint>
+  </xacro:if> -->
+
+  <link name="tracer" />
+  <joint
+    name="base_link_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="tracer" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <xacro:include filename="$(find xarm_description)/urdf/xarm_device.urdf.xacro" />
+</robot>
